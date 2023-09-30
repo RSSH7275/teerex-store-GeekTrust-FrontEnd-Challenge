@@ -1,25 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { Route, Switch } from "react-router-dom";
+import { SnackbarProvider } from 'notistack';
+import HomePage from "./Components/HomePage";
+import Cart from "./Components/Cart";
+import {CartDataProvide} from "./HomeContext";
+
+export const config={ endpoint:`https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json`};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;
+    <div>
+      <CartDataProvide>
+        <SnackbarProvider>
+        <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/cart" component={Cart} />
+      </Switch>
+        </SnackbarProvider>
+      </CartDataProvide>
+  </div>
+      
+    ); 
+  }
+  
+  export default App;
